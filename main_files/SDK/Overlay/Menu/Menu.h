@@ -53,32 +53,57 @@ namespace Menu {
 		style->Colors[ImGuiCol_PlotHistogramHovered] = ImVec4(0.25f, 1.00f, 0.00f, 1.00f);
 		style->Colors[ImGuiCol_TextSelectedBg] = ImVec4(0.25f, 1.00f, 0.00f, 0.43f);
 		#pragma endregion
+		ImGui::SetNextWindowSize(ImVec2(800, 600));
+			ImGui::Begin("YouAreWholeSome", 0, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize);
+			{
+				if (ImGui::Button("Aimbot", ImVec2(ImGui::GetContentRegionAvail().x / 4, 29)))
+					MenuSettings::Tab = 0;
 
-		ImGui::SetNextWindowSize(ImVec2(600, 700));
-		ImGui::Begin("Apex-Legends-SDK", (bool*)0, 0);
+				ImGui::SameLine();
 
-		ImGui::Spacing();
+				if (ImGui::Button("Visuals", ImVec2(ImGui::GetContentRegionAvail().x / 3, 29)))
+					MenuSettings::Tab = 1;
 
-		ImGui::Checkbox("Box ESP", &MenuSettings::espEnabled);
-		ImGui::Checkbox("Snaplines", &MenuSettings::snaplinesEnabled);
-		ImGui::Checkbox("Healthbar", &MenuSettings::healthbarEnabled);
-		ImGui::Checkbox("Glow ESP", &MenuSettings::glowEnabled);
+				ImGui::SameLine();
 
-		ImGui::Spacing();
+				if (ImGui::Button("Other", ImVec2(ImGui::GetContentRegionAvail().x / 2, 29)))
+					MenuSettings::Tab = 2;
 
-		ImGui::Checkbox("No Recoil", &MenuSettings::noRecoilEnabled);
+				ImGui::SameLine();
 
-		ImGui::Spacing();
+				if (ImGui::Button("Settings", ImVec2(ImGui::GetContentRegionAvail().x / 1, 29)))
+					MenuSettings::Tab = 3;
 
-		ImGui::Checkbox("Aimbot", &MenuSettings::aimbotEnabled);
-		ImGui::Text("Aim Key"); 
-		ImGui::SameLine();
-		ImGui::Combo(("Hotkey"), &MenuSettings::aimbotKeyID, MenuSettings::aimbotKeys, IM_ARRAYSIZE(MenuSettings::aimbotKeys));
-		ImGui::SliderInt("Aimbot Smoothness", &MenuSettings::aimbotSmoothness, 1, 100);
-		ImGui::Checkbox("Aimbot FOV Circle", &MenuSettings::fovCircle);
-		ImGui::SliderInt("Aimbot FOV", &MenuSettings::aimbotFOV, 10, 500);
+				ImGui::Spacing();
+				ImGui::Separator();
 
+				switch (MenuSettings::Tab)
+				{
+				case 0: // Aimbot
+					ImGui::Checkbox("Aimbot Enabled", &MenuSettings::aimbotEnabled);
+					ImGui::Text("Aim Key");
+					ImGui::SameLine();
+					ImGui::Combo("Hotkey", &MenuSettings::aimbotKeyID, MenuSettings::aimbotKeys, IM_ARRAYSIZE(MenuSettings::aimbotKeys));
+					ImGui::Checkbox("Draw FOV", &MenuSettings::fovCircle);
+					ImGui::SliderInt("FOV Size", &MenuSettings::aimbotFOV, 10, 500);
+					break;
 
-		ImGui::End();
+				case 1: // Visuals
+					ImGui::Checkbox("Box ESP", &MenuSettings::espEnabled);
+					ImGui::Checkbox("Glow ESP", &MenuSettings::glowEnabled);
+					ImGui::Checkbox("Healthbar", &MenuSettings::healthbarEnabled);
+					ImGui::Checkbox("Snaplines", &MenuSettings::snaplinesEnabled);
+					break;
+
+				case 2: // Other
+					ImGui::Checkbox("No Recoil", &MenuSettings::noRecoilEnabled);
+					break;
+
+				case 3: // Settings
+					ImGui::Text("To close or unload the cheat press END / ENDE on your keyboard");
+					break;
+				}
+			}
+			ImGui::End();
 	}
 }

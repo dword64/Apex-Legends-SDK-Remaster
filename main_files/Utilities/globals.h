@@ -21,6 +21,7 @@ namespace MenuSettings {
 	bool snaplinesEnabled = false;
 	bool thirdPerson = false;
 
+	static int Tab = 0;
 
 	int aimbotKeyID = 0;
 	const char* aimbotKeys[3] = { "Right Mouse", "Left Alt", "Left Mouse" }; // https://docs.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes
