@@ -11,17 +11,15 @@ int main()
 {
 	FreeConsole();
 
-	system("mapper.exe Driver.sys");
-
-	MessageBoxA(NULL, "Start Apex please! Loader will close after injection", "Start Apex please! Loader will close after injection", NULL);
+	system("kdmapper.exe ApexDriver.sys");
 
 	//Initialization
 	while (!Globals::hWnd)
 		Globals::hWnd = FindWindow(NULL, L"Apex Legends");
-		
+
 	while (!Globals::processID)
 		Globals::processID = Driver::get_process_id("r5apex.exe");
-	
+
 	while (!Globals::modBase)
 		Globals::modBase = Driver::GetModuleBase(Globals::processID, "r5apex.exe");
 
